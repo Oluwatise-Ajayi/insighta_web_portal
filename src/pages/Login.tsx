@@ -21,7 +21,7 @@ const Login: React.FC = () => {
         <h1 style={{ marginBottom: '0.5rem', fontSize: '1.75rem' }}>Insighta Labs+</h1>
         <p className="text-muted" style={{ marginBottom: '2.5rem' }}>Secure demographic intelligence.</p>
         
-        <a href="http://localhost:3000/auth/github?source=web" className="btn btn-primary w-full" style={{ padding: '0.8rem' }}>
+        <a href={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/auth/github?source=web`} className="btn btn-primary w-full" style={{ padding: '0.8rem' }}>
           Continue with GitHub
         </a>
       </div>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000',
   withCredentials: true, // Crucial for sending/receiving HTTP-only cookies
   headers: {
     'X-API-Version': '1',
@@ -20,7 +20,8 @@ api.interceptors.response.use(
       error.config._retry = true;
       try {
         // Attempt to refresh token using the HTTP-only refresh cookie
-        await axios.post('http://localhost:3000/auth/token/refresh', {}, { withCredentials: true });
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+        await axios.post(`${backendUrl}/auth/token/refresh`, {}, { withCredentials: true });
         // If successful, retry the original request
         return api(error.config);
       } catch (refreshError) {
