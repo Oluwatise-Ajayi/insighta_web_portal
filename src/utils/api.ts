@@ -26,7 +26,9 @@ api.interceptors.response.use(
         return api(error.config);
       } catch (refreshError) {
         // If refresh fails, session is truly dead
-        window.location.href = '/login';
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       }
     }
